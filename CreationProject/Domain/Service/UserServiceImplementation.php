@@ -2,6 +2,9 @@
 
 namespace CreationProject\Domain\Service;
 
+use CreationProject\Domain\Model\User;
+use CreationProject\Infrastructure\Repository\UserRepository;
+
 /**
  * Class UserServiceImplementation
  */
@@ -10,7 +13,7 @@ class UserServiceImplementation implements UserService
     /**
      * @var UserRepository
      */
-    private $userRepository;
+    private UserRepository $userRepository;
 
     /**
      * @param UserRepository $userRepository
@@ -20,12 +23,20 @@ class UserServiceImplementation implements UserService
         $this->userRepository = $userRepository;
     }
 
-
     /**
      * @return array
      */
     public function getAllUsers(): array
     {
-        return $this->userRepository->getAll();
+        // gets user file content array from repository
+        $usersFileContent = $this->userRepository->getAll();
+        $usersData = array();
+        // creates associative array from file content array
+        foreach ($usersFileContent as $row) {
+            $user = new User($row['first_name'], $row['age'], $row['gender']);
+            $usersData[] = $user;
+        }
+        var_dump($usersData);
+        return $usersData;
     }
 }
