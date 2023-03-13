@@ -1,9 +1,5 @@
 <?php
 
-namespace CreationProject\Vendor;
-
-use Exception;
-
 /**
  * Class EnvLoader reads .env file and returns associative array
  */
@@ -16,7 +12,7 @@ class EnvLoader
     /**
      * @var string
      */
-    private string $envFilePath = "__DIR__ . '/config/.env";
+    private string $envFilePath = '/config/.env';
 
     /**
      * @return array
@@ -24,10 +20,12 @@ class EnvLoader
      */
     public function getEnv(): array
     {
-        if (!file_exists($this->envFilePath)) {
+        $path = dirname(__DIR__) . $this->envFilePath;
+        if (!file_exists($path)) {
             throw new Exception('.env file not found');
         }
-        $envContent = file_get_contents($this->envFilePath);
+
+        $envContent = file_get_contents($path);
         // creates array of strings from .env file
         $lines = explode(PHP_EOL, $envContent);
         // separates .env file values to key and values and creates associative array

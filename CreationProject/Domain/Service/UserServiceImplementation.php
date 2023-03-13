@@ -36,7 +36,6 @@ class UserServiceImplementation implements UserService
             $user = new User($row['first_name'], $row['age'], $row['gender']);
             $usersData[] = $user;
         }
-        var_dump($usersData);
         return $usersData;
     }
 }

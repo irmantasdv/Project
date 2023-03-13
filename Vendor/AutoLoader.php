@@ -1,4 +1,5 @@
 <?php
+
 namespace CreationProject\Vendor;
 class AutoLoader
 {
@@ -7,10 +8,10 @@ class AutoLoader
         spl_autoload_register(function ($class) {
             // Replacing '\' with '/'
             $file = str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
-            try{
+            try {
                 require $file;
-            } catch (\Exception $e){
-                Echo($e);
+            } catch (\Exception $e) {
+                echo($e);
             }
         });
     }
